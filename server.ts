@@ -289,9 +289,7 @@ function generateDataGroundedAnswer(prompt: string, context: any, history?: any[
       debtorsList.length
     } customer(s)** with outstanding balances, totaling **${fmtN(totalOwed)}**:\n\n${debtorRows.join(
       '\n\n'
-    )}\n\n💡 **Action Plan:**\n1. Alhaji Musa Garba's balance of **${fmtN(
-      520000
-    )}** is overdue. Send a polite WhatsApp reminder today with your Moniepoint MFB account details.\n2. Collecting these receivables will inject **${fmtN(
+   Prioritize follow-up with customers whose balances are overdue, using their actual recorded balances and due dates..\n2. Collecting these receivables will inject **${fmtN(
       totalOwed
     )}** of liquid working capital without taking high-interest supplier credit.`;
   }
@@ -461,7 +459,7 @@ function generateDataGroundedAnswer(prompt: string, context: any, history?: any[
   }
 
   // 9. DRAFT WHATSAPP REMINDER
-  if (p.includes('draft') || p.includes('whatsapp') || p.includes('reminder message') || p.includes('sms')) {
+  if (p.includes('draft') || p.includes('whatsapp') || p.includes('reminder message') || p.includes('sms')) Please use the store's verified payment details provided on your invoice.
     return `### 📱 Pre-Formatted WhatsApp Debt Reminder for Rawls & Hub\n\n**Option 1: Courteous & Gentle (First Reminder)**\n> *"Good day [Customer Name]! Hope business and family are well. We are doing our end-of-month reconciliation at Rawls & Hub and wanted to share a friendly reminder regarding your outstanding balance of **[Amount]** for your recent gadget purchase.\n>\n> You can conveniently transfer directly to our store account:\n> 🏦 **Bank:** Moniepoint Microfinance Bank\n> 🔢 **Account No:** 8149876543\n> 👤 **Account Name:** Rawls & Hub Tech Ventures Ltd\n>\n> Kindly send us the payment receipt once processed. Thank you for your continued patronage! 🙏"*\n\n**Option 2: Firm & Professional (Overdue Account)**\n> *"Hello [Customer Name], this is an urgent reminder from Rawls & Hub. Your invoice of **[Amount]** is now overdue. To keep your store credit line active for future device purchases, kindly ensure transfer is settled today to our Moniepoint account (8149876543). Please confirm once sent. Thank you."*`;
   }
 
