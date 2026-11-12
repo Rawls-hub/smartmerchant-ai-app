@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartMerchant AI - Business Management & POS for Nigerian Merchants</title>
+    <meta name="description" content="AI-powered business management assistant for Nigerian small business owners: track sales, outstanding payments, inventory alerts, and orders in Naira (₦)." />
+    <meta property="og:title" content="SmartMerchant AI - Business Management for Nigerian Merchants" />
+    <meta property="og:description" content="AI-powered business management assistant for Nigerian small business owners: track sales, outstanding payments, inventory alerts, and orders in Naira (₦)." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+      (function() {
+        // Intercept Vite HMR WebSockets in iframe/proxy environments where HMR is disabled
+        if (typeof window !== 'undefined' && window.WebSocket) {
+          var OrigWebSocket = window.WebSocket;
+          window.WebSocket = function(url, protocols) {
+            var isVite = (typeof protocols === 'string' && protocols.indexOf('vite') !== -1) ||
+                         (Array.isArray(protocols) && protocols.some(function(p) { return p.indexOf('vite') !== -1; })) ||
+                         (typeof url === 'string' && (url.indexOf('token=') !== -1 || url.indexOf('vite') !== -1));
+            if (isVite) {
+              var fake = new EventTarget();
+              fake.readyState = 1;
+              fake.OPEN = 1;
+              fake.CONNECTING = 0;
+              fake.CLOSING = 2;
+              fake.CLOSED = 3;
+              fake.send = function() {};
+              fake.close = function() {};
+              setTimeout(function() {
+                fake.dispatchEvent(new Event('open'));
+              }, 0);
+              return fake;
+            }
+            return new OrigWebSocket(url, protocols);
+          };
+          window.WebSocket.prototype = OrigWebSocket.prototype;
+          window.WebSocket.OPEN = OrigWebSocket.OPEN || 1;
+          window.WebSocket.CONNECTING = OrigWebSocket.CONNECTING || 0;
+          window.WebSocket.CLOSING = OrigWebSocket.CLOSING || 2;
+          window.WebSocket.CLOSED = OrigWebSocket.CLOSED || 3;
+        }
+
+        // Suppress any remaining unhandled transport errors or rejections
+        var suppress = function(e) {
+          var str = String((e && (e.message || e.reason || e.error || e)) || '');
+          if (str.indexOf('WebSocket') !== -1 || str.indexOf('createWebSocketModuleRunnerTransport') !== -1 || str.indexOf('@vite/client') !== -1 || str.indexOf('vite') !== -1) {
+            if (e.preventDefault) e.preventDefault();
+            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+            return true;
+          }
+        };
+        window.addEventListener('error', suppress, true);
+        window.addEventListener('unhandledrejection', suppress, true);
+        window.onerror = function(msg) {
+          if (String(msg).indexOf('WebSocket') !== -1 || String(msg).indexOf('vite') !== -1) return true;
+        };
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

@@ -1,0 +1,6 @@
+{
+  "name": "SmartMerchant AI",
+  "description": "AI-powered business management assistant for Nigerian small business owners and merchants, featuring sales tracking, inventory alerts, and instant receipt generation in Naira.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
