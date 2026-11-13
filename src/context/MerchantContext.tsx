@@ -1,5 +1,8 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo } from 'react';
 import {
+  loadMerchantCloud,
+  saveMerchantCloud,
+} from '../lib/merchantCloud';
   Product,
   Sale,
   Order,
@@ -205,7 +208,36 @@ function normalizePhone(phone: string): string {
 
 export const MerchantProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [activeSection, setActiveSection] = useState<NavSection>('dashboard');
-  
+  const [cloudReady, setCloudReady] = useState(false);
+
+useEffect(() => {
+  let cancelled = false;
+
+  loadMerchantCloud()
+    .then((data) => {
+      if (cancelled) return;
+
+      if (data.products) setProducts(data.products);
+      if (data.sales) setSales(data.sales);
+      if (data.debtors) setDebtors(data.debtors);
+      if (data.orders) setOrders(data.orders);
+      if (data.bankPayments) setBankPayments(data.bankPayments);
+      if (data.paymentTransactions) setPaymentTransactions(data.paymentTransactions);
+      if (data.customers) setCustomers(data.customers);
+      if (data.expenses) setExpenses(data.expenses);
+      if (data.settings) setSettings(data.settings);
+      if (data.restockConfig) setRestockConfig(data.restockConfig);
+
+      setCloudReady(true);
+    })
+    .catch((error) => {
+      console.error('Could not load merchant cloud data:', error);
+    });
+
+  return () => {
+    cancelled = true;
+  };
+}, []);
   // Persistent state with initial Nigerian seed data
   const [products, setProducts] = useState<Product[]>(() => {
     const saved = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
