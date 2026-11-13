@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { AuthScreen } from './components/AuthScreen';
+import { supabase } from './lib/supabase';
 import { MerchantProvider, useMerchant } from './context/MerchantContext';
 import { NearProvider } from './context/NearContext';
 import { Sidebar } from './components/Sidebar';
@@ -97,7 +99,44 @@ const AppContent: React.FC = () => {
   );
 };
 
-export default function App() {
+function AuthGate() {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (mounted) {
+        setIsAuthenticated(!!session);
+      }
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        if (mounted) {
+          setIsAuthenticated(!!session);
+        }
+      }
+    );
+
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  if (isAuthenticated === null) {
+    return (
+      <div className="min-h-screen bg-[#070B16] flex items-center justify-center text-white">
+        Loading...
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return <AuthScreen />;
+  }
+
   return (
     <MerchantProvider>
       <NearProvider>
@@ -105,4 +144,8 @@ export default function App() {
       </NearProvider>
     </MerchantProvider>
   );
+}
+
+export default function App() {
+  return <AuthGate />;
 }
