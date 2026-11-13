@@ -390,7 +390,36 @@ useEffect(() => {
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(settings));
   }, [settings]);
+useEffect(() => {
+  if (!cloudReady) return;
 
+  saveMerchantCloud({
+    products,
+    sales,
+    debtors,
+    orders,
+    bankPayments,
+    paymentTransactions,
+    customers,
+    expenses,
+    settings,
+    restockConfig,
+  }).catch((error) => {
+    console.error('Merchant cloud sync failed:', error);
+  });
+}, [
+  cloudReady,
+  products,
+  sales,
+  debtors,
+  orders,
+  bankPayments,
+  paymentTransactions,
+  customers,
+  expenses,
+  settings,
+  restockConfig,
+]);
   // Derived Financial Metrics
   const totalSalesToday = sales.reduce((acc, sale) => acc + (sale.totalAmount || 0), 0);
 
