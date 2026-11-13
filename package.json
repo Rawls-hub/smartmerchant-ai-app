@@ -21,6 +21,7 @@
     "motion": "^12.23.24",
     "near-api-js": "^7.5.2",
     "react": "^19.0.1",
+    "@supabase/supabase-js": "^2.0.0",
     "react-dom": "^19.0.1",
     "vite": "^8.3.0"
   },
