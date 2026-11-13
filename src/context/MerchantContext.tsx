@@ -1,8 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo } from 'react';
+
 import {
-  loadMerchantCloud,
-  saveMerchantCloud,
-} from '../lib/merchantCloud';
   Product,
   Sale,
   Order,
@@ -22,6 +20,7 @@ import {
   ProfitabilitySummary,
   RestockConfig,
 } from '../types';
+
 import {
   initialProducts,
   initialSales,
@@ -33,6 +32,11 @@ import {
   initialCustomers,
   initialExpenses,
 } from '../data/mockData';
+
+import {
+  loadMerchantCloud,
+  saveMerchantCloud,
+} from '../lib/merchantCloud';
 
 export type NavSection = 'dashboard' | 'sales' | 'inventory' | 'orders' | 'customers' | 'payments' | 'expenses' | 'ai' | 'ask_ai';
 
