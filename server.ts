@@ -285,11 +285,11 @@ function generateDataGroundedAnswer(prompt: string, context: any, history?: any[
       )})\n   - Item: *${d.itemDescription}*\n   - Status: ${overdueStatus}`;
     });
 
-    return `### 📋 Outstanding Debtors & Receivables for ${storeName}\n\nYou currently have **${
+   return `### 📋 Outstanding Debtors & Receivables for ${storeName}\n\nYou currently have **${
       debtorsList.length
     } customer(s)** with outstanding balances, totaling **${fmtN(totalOwed)}**:\n\n${debtorRows.join(
       '\n\n'
-   Prioritize follow-up with customers whose balances are overdue, using their actual recorded balances and due dates..\n2. Collecting these receivables will inject **${fmtN(
+    )}\n\nPrioritize follow-up with customers whose balances are overdue, using their actual recorded balances and due dates.\n\n2. Collecting these receivables will inject **${fmtN(
       totalOwed
     )}** of liquid working capital without taking high-interest supplier credit.`;
   }
